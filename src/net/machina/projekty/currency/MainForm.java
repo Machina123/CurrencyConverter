@@ -84,11 +84,6 @@ public class MainForm extends javax.swing.JFrame {
         jLabel4.setText("1 CHF = PLN");
 
         txtUSD.setEditable(false);
-        txtUSD.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUSDActionPerformed(evt);
-            }
-        });
 
         txtEUR.setEditable(false);
 
@@ -192,14 +187,19 @@ public class MainForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnGetValuesActionPerformed
 
-    private void txtUSDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUSDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtUSDActionPerformed
-
     private void btnConvertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConvertActionPerformed
-        String value = txtInput.getText();
-        Double valueD = Double.parseDouble(value.replace(",", "."));
-        
+        try {
+            String value = txtInput.getText();
+            Double valueD = Double.parseDouble(value.replace(",", "."));
+            Double curFrom = values.get(cmbCurrencyFrom.getSelectedItem().toString());
+            Double curTo = values.get(cmbCurrencyTo.getSelectedItem().toString());
+            
+            Double output = (valueD * curFrom) / curTo;
+            
+            txtResult.setText(output.toString());
+        } catch(Exception ex) {
+            logger.log(Level.SEVERE, ex.getMessage());
+        }
     }//GEN-LAST:event_btnConvertActionPerformed
 
     /**
